@@ -25,12 +25,19 @@ namespace Draw_Letter
                 timer1.Enabled = true;
                 stopAndStart = 1;
                 buttonRun.Text = "Stop";
+                lblMessage.Text = "";
+                timer2.Enabled = false;
+                txtTimer.Text = "0";
+                timerDisplay.Text = "0 seconds";
             }
             else
             {
                 timer1.Enabled = false;
                 stopAndStart = 0;
                 buttonRun.Text = "Start";
+                timeLeft = int.Parse(txtTimer.Text);
+                timer2.Enabled = true;
+                timerDisplay.Text = txtTimer.Text + " seconds";
             }
         }
 
@@ -61,7 +68,25 @@ namespace Draw_Letter
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            txtTimer.Text = "0";
+        }
 
+        private int timeLeft = 0;
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+            if (timeLeft > 0)
+            {
+                lblMessage.Text = "";
+                timer2.Enabled = true;
+                timeLeft -= 1;
+                timerDisplay.Text = timeLeft + " seconds";
+            }
+            else
+            {
+                timer2.Enabled = false;
+                timerDisplay.Text = "0 seconds";
+                lblMessage.Text = "КРАЙ";
+            }
         }
     }
 }
