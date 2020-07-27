@@ -1,9 +1,9 @@
-var canvas;
-var ctx;
-var down = false; //mouse is pressed
-var color = 'black'; //default drawing color
-var width = 1; // drawing width
-var isEraser = false; // is eraser On/Off
+let canvas;
+let ctx;
+let down = false; //mouse is pressed
+let color = 'black'; //default drawing color
+let width = 1; // drawing width
+let isEraser = false; // is eraser On/Off
 
 //calling window.onload to make sure the HTML is loaded
 window.onload = function () {
@@ -40,6 +40,7 @@ window.onload = function () {
     canvas.addEventListener('mousemove', handleMove);
     canvas.addEventListener('mousedown', handleDown);
     canvas.addEventListener('mouseup', handleUp);
+    canvas.addEventListener('mouseout', handleOut);
 
 
 };
@@ -74,6 +75,10 @@ function handleUp() {
     down = false;
 }
 
+function handleOut() {
+    down = false;
+}
+
 function changeColor(new_color) {
     color = new_color;
 }
@@ -83,5 +88,9 @@ function changeLine() {
 }
 
 function clearCanvas() {
+    isEraser = false;
+    canvas.style.cursor = 'crosshair';
+    ctx.globalCompositeOperation = "source-over";
+    ctx.strokeStyle = color;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
